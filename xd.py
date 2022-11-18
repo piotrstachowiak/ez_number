@@ -173,7 +173,7 @@ def div_by_4_short(numbers):
                 break
 
 
-div_by_4_short(nums)
+# div_by_4_short(nums)
 
 
 # --- PODZIAŁ NA 3 ---
@@ -216,6 +216,28 @@ def div_by_2(numbers):
                 break
 
 
+def div_by_part_lenght(numbers, part_length, matches_number):
+    for x in numbers:
+        number = str(x)
+        # parts = re.findall(f".{part_length}", number)
+        parts = re.compile(f".{{{part_length}}}")
+        print(parts.pattern)
+        parts = re.compile(".{4}")
+        print(parts.pattern)
+
+        # print(re.findall(f".{part_length}", number))
+        # print(parts)
+        # for part in parts:
+        #     if len(re.findall(f"{part}", number)) >= matches_number:
+        #         # print(f"{part_1} {number[4:5]} {part_1}")
+        #         # "if x" removes spaces
+        #         print(" ".join([x for x in re.split(f"({part})", number) if x]))
+        #         break
+
+
+div_by_part_lenght(nums, 4, 2)
+# div_by_part_lenght(nums, 3, 3)
+# div_by_part_lenght(nums, 2, 3)
 # div_by_2(nums)
 
 # def div_by_3(numbers):
