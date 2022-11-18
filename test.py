@@ -1,6 +1,6 @@
 import random, time
-from functools import reduce
-from itertools import chain
+# from functools import reduce
+# from itertools import chain
 
 # print(random.randrange(1, 9))
 start = time.time()
@@ -48,21 +48,25 @@ ranges = (
 #     range(30, 40)
 # )
 
-ranges_length = 0
-for r in ranges: ranges_length += len(r)
-# print(ranges_length)
 
+def generate_numbers(amount):
+    ranges_length = 0
+    for r in ranges: ranges_length += len(r)
+    # print(ranges_length)
+    
 
-# print(index)
-# print(ranges_length - index)
-for x in range(10000):
-    rng = ranges_length
-    index = random.choice(range(1, ranges_length + 1))
-    for r in ranges:
-        rng -= len(r)
-        if index > rng:
-            print(random.choice(r))
-            break
+    # print(index)
+    # print(ranges_length - index)
+    numbers = set()
+    for x in range(amount):
+        rng = ranges_length
+        index = random.choice(range(1, ranges_length + 1))
+        for r in ranges:
+            rng -= len(r)
+            if index > rng:
+                numbers.add(random.choice(r))
+                break
+    return numbers
 
 
 # print(*range(1,21))
@@ -87,4 +91,4 @@ for x in range(10000):
 # print(random.choices(ranges, k=30000))
 stop = time.time()
 # print(lenght)
-print(stop-start)
+# print(stop-start)
