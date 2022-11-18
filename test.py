@@ -52,18 +52,19 @@ ranges_length = 0
 for r in ranges: ranges_length += len(r)
 # print(ranges_length)
 
-index = random.choice(range(1, ranges_length + 1))
+
 # print(index)
-
 # print(ranges_length - index)
-my_random_range = range
-for r in ranges:
-    ranges_length -= len(r)
-    if index > ranges_length:
-        my_random_range = r
-        break
+for x in range(10000):
+    rng = ranges_length
+    index = random.choice(range(1, ranges_length + 1))
+    for r in ranges:
+        rng -= len(r)
+        if index > rng:
+            print(random.choice(r))
+            break
 
-print(random.choices(my_random_range, k = 100000))
+
 # print(*range(1,21))
 
 # merged_ranges = functools.reduce(lambda a, b: a + b, ranges)

@@ -1,4 +1,3 @@
-import random
 import re
 # import pandas
 
@@ -156,37 +155,86 @@ def div_by_4(numbers):
 # div_by_4(test_numbers)
 # div_by_4([999919999, 123412341, 456316328])
 
-nums = [999919999, 123412341, 123456789]
+nums = [999919999, 123412341, 123456789, 999999999, 234523523]
 
 
 def div_by_4_short(numbers):
     for x in numbers:
         number = str(x)
-        parts = [number[:4], number[1:5]]
+        # in 9 digit numbers 4 digit pattern must occur in the first 5 digits if it is to occur again
+        # parts = [number[:4], number[1:5]]
         # x = re.findall("9999", number)
+        parts = re.findall(".{4}", number)
         for part in parts:
-            if len(re.findall(f"{part}", number)) == 2:
+            if len(re.findall(f"{part}", number)) >= 2:
                 # print(f"{part_1} {number[4:5]} {part_1}")
-                print(" ".join([x for x in re.split(f"({part})", number,) if x]))
+                # "if x" removes spaces
+                print(" ".join([x for x in re.split(f"({part})", number) if x]))
                 break
 
 
 div_by_4_short(nums)
 
+
+# --- PODZIAŁ NA 3 ---
+
+def div_by_3(numbers):
+    for x in numbers:
+        number = str(x)
+        parts = re.findall(".{3}", number)
+        # print(parts)
+        for part in parts:
+            if len(re.findall(f"{part}", number)) >= 2:
+                # print(f"{part_1} {number[4:5]} {part_1}")
+                # "if x" removes spaces
+                print(" ".join([x for x in re.split(f"({part})", number) if x]))
+                break
+        # for part in parts:
+        #     if len(re.findall(f"{part}", number)) == 2:
+        #         print(part)
+    #     while number:
+    #         values.append(number[:3])
+    #         number = number[3:]
+    #     dataset.update({"0": values})
+    #     test.append(dataset)
+    # print("\n",test)
+
+
+# div_by_3(nums)
+
+
+def div_by_2(numbers):
+    for x in numbers:
+        number = str(x)
+        parts = re.findall(".{2}", number)
+        # print(parts)
+        for part in parts:
+            if len(re.findall(f"{part}", number)) >= 3:
+                # print(f"{part_1} {number[4:5]} {part_1}")
+                # "if x" removes spaces
+                print(" ".join([x for x in re.split(f"({part})", number) if x]))
+                break
+
+
+# div_by_2(nums)
+
+# def div_by_3(numbers):
+#     for number in numbers:
+#         number3 = str(number)
+#         dataset = {}
+#         values = []
+#         while number3:
+#             values.append(number3[:3])
+#             number3 = number3[3:]
+#         dataset.update({"0": values})
+#         test.append(dataset)
+#     print("\n",test)
+
+
 # y = re.findall(part_2, numb)
 # print("{}{}".format(x,y))
 # print(f"{x}{y}")
 
-
-# --- PODZIAŁ NA 3 ---
-# numb3 = str(numb)
-# dataset = {}
-# values = []
-# while numb3:
-#     values.append(numb3[:3])
-#     numb3 = numb3[3:]
-# dataset.update({"0": })
-# test.append(dataset)
 
 # --- PODZIAŁ NA 2 ---
 # numb2 = str(numb)
