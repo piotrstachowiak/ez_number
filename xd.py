@@ -162,7 +162,7 @@ nums = [999919999, 123412341, 123456789, 999999999, 234523523]
 def div_by_4_short(numbers):
     for x in numbers:
         number = str(x)
-        # in 9 digit numbers 4 digit pattern must occur in the first 5 digits if it is to occur again
+        # in 9-digit numbers 4 digit pattern must occur in the first 5 digits if it is to occur again
         # parts = [number[:4], number[1:5]]
         # x = re.findall("9999", number)
         parts = re.findall(".{4}", number)
@@ -216,9 +216,10 @@ def div_by_2(numbers):
                 print(" ".join([x for x in re.split(f"({part})", number) if x]))
                 break
 
-
-phonebook = generate_numbers(10000)
+phonebook = generate_numbers(50000)
 ez_numbers = []
+# s = input('asdas: ')
+
 def div_by_part_lenght(numbers, part_length, matches_number):
     for x in numbers.copy():
         number = str(x)
@@ -234,16 +235,31 @@ def div_by_part_lenght(numbers, part_length, matches_number):
             if len(re.findall(f"{part}", number)) >= matches_number:
                 # print(f"{part_1} {number[4:5]} {part_1}")
                 # "if x" removes spaces
-                ez_numbers.append(" ".join([x for x in re.split(f"({part})", number) if x]))
-                phonebook.remove(x)
+                number = " ".join([x for x in re.split(f"({part})", number) if x])
+                if len(number.split(" ")) < 4:
+                    ez_numbers.append(number)
+                    phonebook.remove(x)
+                # ez_numbers.append(" ".join([x for x in re.split(f"({part})", number) if x]))
                 break
 
 
-div_by_part_lenght(phonebook, 4, 2)
-div_by_part_lenght(phonebook, 3, 2)
-div_by_part_lenght(phonebook, 2, 3)
+# option for user to decide, turns out numbers with 4-digit patterns
+# require more information to be remembered (position of the rest)
+# div_by_part_lenght(phonebook, 4, 2)
 
-outcome = sorted(ez_numbers, key = lambda number: len(list(set(number))))
+div_by_part_lenght(phonebook, 3, 2)
+# div_by_part_lenght(phonebook, 2, 3)
+
+# print(type(ez_numbers[0]))
+# print(ez_numbers[0].split(' ', 1)[0])
+
+outcome = sorted(ez_numbers, key=lambda number: ((len(set(number))), -len(number.split(' '))))
+
+# "0" in number
+# print(outcome)
+print("\n".join(outcome[:20]))
+
+
 # div_by_2(nums)
 
 # def div_by_3(numbers):
@@ -286,4 +302,3 @@ outcome = sorted(ez_numbers, key = lambda number: len(list(set(number))))
 # dataframe = pandas.DataFrame(outcome)
 # print(dataframe.to_string())
 
-print("\n".join(outcome))
