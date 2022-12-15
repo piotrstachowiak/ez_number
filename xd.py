@@ -179,17 +179,23 @@ def div_by_4_short(numbers):
 
 # --- PODZIAŁ NA 3 ---
 
+phonebook = generate_numbers(50000)
+ez_numbers = []
+
+
 def div_by_3(numbers):
-    for x in numbers:
+    for x in numbers.copy():
         number = str(x)
         parts = re.findall(".{3}", number)
-        # print(parts)
         for part in parts:
             if len(re.findall(f"{part}", number)) >= 2:
                 # print(f"{part_1} {number[4:5]} {part_1}")
                 # "if x" removes spaces
-                print(" ".join([x for x in re.split(f"({part})", number) if x]))
-                break
+                number = " ".join([x for x in re.split(f"({part})", number) if x])
+                if len(number.split(" ")) < 4:
+                    ez_numbers.append(number)
+                    phonebook.remove(x)
+                    break
         # for part in parts:
         #     if len(re.findall(f"{part}", number)) == 2:
         #         print(part)
@@ -199,9 +205,6 @@ def div_by_3(numbers):
     #     dataset.update({"0": values})
     #     test.append(dataset)
     # print("\n",test)
-
-
-# div_by_3(nums)
 
 
 def div_by_2(numbers):
@@ -216,9 +219,6 @@ def div_by_2(numbers):
                 print(" ".join([x for x in re.split(f"({part})", number) if x]))
                 break
 
-phonebook = generate_numbers(50000)
-ez_numbers = []
-# s = input('asdas: ')
 
 def div_by_part_lenght(numbers, part_length, matches_number):
     for x in numbers.copy():
@@ -243,62 +243,36 @@ def div_by_part_lenght(numbers, part_length, matches_number):
                 break
 
 
-# option for user to decide, turns out numbers with 4-digit patterns
-# require more information to be remembered (position of the rest)
-# div_by_part_lenght(phonebook, 4, 2)
+user_input, numbers_amount = 0, 0
 
-div_by_part_lenght(phonebook, 3, 2)
-# div_by_part_lenght(phonebook, 2, 3)
+while True:
+    try:
+        user_input = int(input("\nPlease enter a number (1, 2, or 3): "))
+    except ValueError:
+        print("Oops!  That was no valid number.  Try again...")
+    if user_input in [1, 2, 3, 201101430]:
+        break
 
-# print(type(ez_numbers[0]))
-# print(ez_numbers[0].split(' ', 1)[0])
+if user_input == 1:
+    print("Well done! Processing...")
+    div_by_3(phonebook)
+    numbers_amount = 25
+elif user_input == 2:
+    while True:
+        try:
+            user_input = int(input("\nHow many numbers do you want to get? (100 maximum): "))
+        except ValueError:
+            print("Oops!  That was no valid number.  Try again...")
+        if numbers_amount in range(1, 101):
+            # print("If Earl Of Lemongrab saw what you just... UNACCEPTABLE!")
+            print("LETS GO, processing...")
+            break
+
+    div_by_part_lenght(phonebook, 4, 2)
+    div_by_part_lenght(phonebook, 3, 2)
 
 outcome = sorted(ez_numbers, key=lambda number: ((len(set(number))), -len(number.split(' '))))
+print("\n".join(outcome[:numbers_amount]))
 
-# "0" in number
-# print(outcome)
-print("\n".join(outcome[:20]))
-
-
-# div_by_2(nums)
-
-# def div_by_3(numbers):
-#     for number in numbers:
-#         number3 = str(number)
-#         dataset = {}
-#         values = []
-#         while number3:
-#             values.append(number3[:3])
-#             number3 = number3[3:]
-#         dataset.update({"0": values})
-#         test.append(dataset)
-#     print("\n",test)
-
-
-# y = re.findall(part_2, numb)
-# print("{}{}".format(x,y))
-# print(f"{x}{y}")
-
-
-# --- PODZIAŁ NA 2 ---
-# numb2 = str(numb)
-# fragment_lenght = 2
-# options = 1 + len(numb2) // fragment_lenght
-# while options:
-#     options -= 1
-#     reminder = numb2[fragment_lenght * options]
-#     main = numb2[0: fragment_lenght * options] + numb2[fragment_lenght * options + 1:]
-#     dataset = [
-#         {
-#             options + 1: [
-#                 reminder,
-#                 re.findall('..', main)
-#             ]
-#         }
-#     ]
-#     test.append(dataset)
-
-#
-# dataframe = pandas.DataFrame(outcome)
-# print(dataframe.to_string())
-
+# option for user to decide, turns out numbers with 4-digit patterns
+# require more information to be remembered (position of the rest)
