@@ -1,5 +1,6 @@
-import re
 from test import generate_numbers
+import re
+import random as r
 # import pandas
 
 # print(random.randrange(100,200,2))  - trzeci parametr step nie rzumiem
@@ -236,9 +237,9 @@ def div_by_part_lenght(numbers, part_length, matches_number):
                 # print(f"{part_1} {number[4:5]} {part_1}")
                 # "if x" removes spaces
                 number = " ".join([x for x in re.split(f"({part})", number) if x])
-                if len(number.split(" ")) < 4:
-                    ez_numbers.append(number)
-                    phonebook.remove(x)
+                # if len(number.split(" ")) < 4:
+                ez_numbers.append(number)
+                phonebook.remove(x)
                 # ez_numbers.append(" ".join([x for x in re.split(f"({part})", number) if x]))
                 break
 
@@ -247,29 +248,37 @@ user_input, numbers_amount = 0, 0
 
 while True:
     try:
-        user_input = int(input("\nPlease enter a number (1, 2, or 3): "))
+        user_input = int(input("\nPlease select mode: "))
     except ValueError:
         print("Oops!  That was no valid number.  Try again...")
-    if user_input in [1, 2, 3, 201101430]:
+    if user_input not in [1, 2, 201101430, 3]:
+        print("Available modes are 1, 2, 3.")
+    else:
         break
 
 if user_input == 1:
-    print("Well done! Processing...")
+    print("Well done! Processing...\n")
     div_by_3(phonebook)
-    numbers_amount = 25
-elif user_input == 2:
+    numbers_amount = 15
+elif user_input == 201101430:
+    print("\u210c\U0001D508\u210c\U0001D508\u00A0"*2005*r.randint(21, 37))
+elif user_input == 2 or user_input == 3:
     while True:
         try:
-            user_input = int(input("\nHow many numbers do you want to get? (100 maximum): "))
+            numbers_amount = int(input("\nHow many numbers do you want to get? (100 maximum): "))
         except ValueError:
             print("Oops!  That was no valid number.  Try again...")
         if numbers_amount in range(1, 101):
             # print("If Earl Of Lemongrab saw what you just... UNACCEPTABLE!")
-            print("LETS GO, processing...")
+            print("LETS GO, processing...\n")
             break
+    if user_input == 2:
+        div_by_part_lenght(phonebook, 4, 2)
+        div_by_3(phonebook)
+    else:
+        div_by_part_lenght(phonebook, 4, 2)
+        div_by_part_lenght(phonebook, 3, 2)
 
-    div_by_part_lenght(phonebook, 4, 2)
-    div_by_part_lenght(phonebook, 3, 2)
 
 outcome = sorted(ez_numbers, key=lambda number: ((len(set(number))), -len(number.split(' '))))
 print("\n".join(outcome[:numbers_amount]))
