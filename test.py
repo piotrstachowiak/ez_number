@@ -1,20 +1,6 @@
-import random, time
-# from functools import reduce
-# from itertools import chain
+import random
 
-# print(random.randrange(1, 9))
-start = time.time()
-
-# próbowałem połączyć przedziały, ale czas wykonywania skryptu przekraczał 6 sekund
-# ranges = list(chain(
-
-#pomysl
-#suma dlugosci przedzialow
-#z tego random
-#random to index
-#wyszukujemy w ktorym przedziale ten index jest
-#w tym przedziale randomujemy
-
+# ranges of mobile phones numbers in Poland according to Wikipedia
 ranges = (
     range(450000000, 452999999),
     range(459000000, 459999999),
@@ -43,52 +29,20 @@ ranges = (
     range(883000000, 889999999)
 )
 
-# ranges = (
-#     range(10, 20),
-#     range(30, 40)
-# )
 
-
-def generate_numbers(amount):
+def generate_numbers(amount: int) -> set:
     ranges_length = 0
-    for r in ranges: ranges_length += len(r)
-    # print(ranges_length)
-    
-
-    # print(index)
-    # print(ranges_length - index)
+    for r in ranges:
+        ranges_length += len(r)
     numbers = set()
-    for x in range(amount):
-        rng = ranges_length
+    while len(numbers) < amount:
+        ranges_length_copy = ranges_length
+        # index is used to pick the range from which a random number will be picked
+        # tried simply merging ranges, but it took waaaaaaaaaay too long to process
         index = random.choice(range(1, ranges_length + 1))
         for r in ranges:
-            rng -= len(r)
-            if index > rng:
+            ranges_length_copy -= len(r)
+            if index > ranges_length_copy:
                 numbers.add(random.choice(r))
                 break
     return numbers
-
-
-# print(*range(1,21))
-
-# merged_ranges = functools.reduce(lambda a, b: a + b, ranges)
-# print(ranges)
-# b = {random.randrange(*ranges) for x in range(1000)}
-# print(type(ranges))
-
-
-# # ty Sumukh Barve https://stackoverflow.com/questions/33730396/how-to-generate-random-integers-with-multiple-ranges
-# def randomPicker(howMany, *ranges):
-#     mergedRange = reduce(lambda a, b: a + b, ranges)
-#     ans = []
-#     for i in range(howMany):
-#         ans.append(random.choice(mergedRange))
-#     return ans
-#
-#
-# print(randomPicker(10, ranges))
-# start = time.time()
-# print(random.choices(ranges, k=30000))
-stop = time.time()
-# print(lenght)
-# print(stop-start)
