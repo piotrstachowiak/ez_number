@@ -1,9 +1,24 @@
-import test
+import data
 import re
 import random
 
-phonebook = test.generate_numbers(50000)
-ez_numbers = []
+
+def generate_phonebook(amount: int) -> set:
+    ranges_length = 0
+    for r in data.ranges:
+        ranges_length += len(r)
+    numbers = set()
+    while len(numbers) < amount:
+        ranges_length_copy = ranges_length
+        # index is used to pick the range from which a random number will be picked
+        # tried simply merging ranges, but it took waaaaaaaaaay too long to process
+        index = random.choice(range(1, ranges_length + 1))
+        for r in data.ranges:
+            ranges_length_copy -= len(r)
+            if index > ranges_length_copy:
+                numbers.add(random.choice(r))
+                break
+    return numbers
 
 
 def divide_numbers_by_3(phonebook: set, ez_numbers: list) -> tuple:
@@ -35,7 +50,7 @@ def divide_numbers_by_part_length(phonebook: set, ez_numbers: list, part_length:
     return phonebook, ez_numbers
 
 
-def interface():
+def initiate_user_interface():
     user_input, numbers_amount = 0, 0
     while True:
         try:
@@ -74,7 +89,7 @@ def interface():
     print("\n".join(outcome[:numbers_amount]))
 
 
-interface()
+initiate_user_interface()
 
 # option for user to decide, turns out numbers with 4-digit patterns
 # require more information to be remembered (position of the rest)

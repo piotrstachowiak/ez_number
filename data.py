@@ -1,5 +1,3 @@
-import random
-
 # ranges of mobile phones numbers in Poland according to Wikipedia
 ranges = (
     range(450000000, 452999999),
@@ -30,19 +28,4 @@ ranges = (
 )
 
 
-def generate_numbers(amount: int) -> set:
-    ranges_length = 0
-    for r in ranges:
-        ranges_length += len(r)
-    numbers = set()
-    while len(numbers) < amount:
-        ranges_length_copy = ranges_length
-        # index is used to pick the range from which a random number will be picked
-        # tried simply merging ranges, but it took waaaaaaaaaay too long to process
-        index = random.choice(range(1, ranges_length + 1))
-        for r in ranges:
-            ranges_length_copy -= len(r)
-            if index > ranges_length_copy:
-                numbers.add(random.choice(r))
-                break
-    return numbers
+
