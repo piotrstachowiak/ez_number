@@ -50,7 +50,7 @@ def divide_numbers_by_part_length(phonebook: set, ez_numbers: list, part_length:
     return phonebook, ez_numbers
 
 
-def initiate_user_interface():
+def initiate_user_interface(phonebook: set, ez_numbers: list):
     user_input, numbers_amount = 0, 0
     while True:
         try:
@@ -85,11 +85,13 @@ def initiate_user_interface():
             divide_numbers_by_part_length(phonebook, ez_numbers, 4, 2)
             divide_numbers_by_part_length(phonebook, ez_numbers, 3, 2)
 
+
+def handle_user_request(phonebook: set, ez_numbers: list, user_input: int, numbers_amount = 15):
+
+    #switch case here
+
     outcome = sorted(ez_numbers, key=lambda number: ((len(set(number))), -len(number.split(' '))))
     print("\n".join(outcome[:numbers_amount]))
-
-
-initiate_user_interface()
 
 # option for user to decide, turns out numbers with 4-digit patterns
 # require more information to be remembered (position of the rest)
