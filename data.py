@@ -1,4 +1,4 @@
-# ranges of mobile phones numbers in Poland according to Wikipedia
+# ranges of mobile numbers in Poland (excluding "+48" prefix)
 ranges = (
     range(450000000, 452999999),
     range(459000000, 459999999),
@@ -26,6 +26,3 @@ ranges = (
     range(882200000, 882299999),
     range(883000000, 889999999)
 )
-
-
-

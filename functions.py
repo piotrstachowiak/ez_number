@@ -4,14 +4,21 @@ import random
 
 
 def generate_phonebook(phonebook_length: int) -> set:
+    """
+    Generate set of mobile numbers.
+
+
+    :param phonebook_length:
+    :return:
+    """
     ranges_length = 0
     for r in data.ranges:
         ranges_length += len(r)
     phonebook = set()
     while len(phonebook) < phonebook_length:
         ranges_length_copy = ranges_length
-        # index is used to pick the range from which a random number will be picked
-        # tried simply merging ranges, but it took waaaaaaaaaay too long to process
+        # index is used to pick the range, from which a random number will be picked
+        # tried simply merging ranges, but it took waaaaaaaaaaay too long to process
         index = random.choice(range(1, ranges_length + 1))
         for r in data.ranges:
             ranges_length_copy -= len(r)
@@ -22,16 +29,20 @@ def generate_phonebook(phonebook_length: int) -> set:
 
 
 def print_user_interface() -> dict:
+    """
+
+    :return:
+    """
     mode, numbers_amount = None, None
-    print("\nWelcome to ez_numbers!\n"
+    print("\nWelcome to ez_numbers - mobile numbers that make sense!\n"
           "\nAvailable modes are:\n"
-          "1 - The Default - generates 15 numbers in standard mobile number format (e.g. \"881 111 881\").\n"
-          "2 - The Custom - generates up to 100 numbers (you choose how many!) in standard format or consisting of a "
-          "4-digit pattern (e.g.: )).\n"
-          "")
+          "1 - The Default - generates 15 numbers in standard format (e.g. \"881 111 881\").\n"
+          "2 - The Custom - generates up to 100 numbers (you choose how many!) consisting of a "
+          "4-digit pattern and a single digit rest (e.g.: \"6646 1 6646\", \"5335 5335 0\") or in standard format.\n"
+          "3 - The Weird - generates up to 100 numbers that are... mostly rather interesting than practical.")
     while True:
         try:
-            mode = int(input("\nPlease select mode: "))
+            mode = int(input("\nSelect mode: "))
         except ValueError:
             print("Oops! That was no valid number. Try again!")
         if mode in [1, 2, 201101430, 3]:
@@ -58,6 +69,14 @@ def print_user_interface() -> dict:
 
 
 def handle_user_request(phonebook: set, ez_numbers: list, mode: int, numbers_amount: int):
+    """
+
+    :param phonebook:
+    :param ez_numbers:
+    :param mode:
+    :param numbers_amount:
+    :return:
+    """
     final_data = None
     match mode:
         case 1:
@@ -75,6 +94,12 @@ def handle_user_request(phonebook: set, ez_numbers: list, mode: int, numbers_amo
 
 
 def divide_phonebook_by_3(phonebook: set, ez_numbers: list) -> dict:
+    """
+
+    :param phonebook:
+    :param ez_numbers:
+    :return:
+    """
     for number in phonebook.copy():
         current_number = str(number)
         parts = re.findall(".{3}", current_number)
@@ -93,6 +118,14 @@ def divide_phonebook_by_3(phonebook: set, ez_numbers: list) -> dict:
 
 
 def divide_phonebook_by_part_length(phonebook: set, ez_numbers: list, part_length: int, matches: int) -> dict:
+    """
+
+    :param phonebook:
+    :param ez_numbers:
+    :param part_length:
+    :param matches:
+    :return:
+    """
     for number in phonebook.copy():
         current_number = str(number)
         parts = re.findall(f".{{{part_length}}}", current_number)
