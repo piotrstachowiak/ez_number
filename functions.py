@@ -7,9 +7,19 @@ def generate_phonebook(phonebook_length: int) -> set:
     """
     Generate set of mobile numbers.
 
+    This function generates a random set of mobile numbers from ranges assigned to use in Poland. At first,
+    it picks a random range containing mobile numbers, then generates random number from that range and saves it.
+    This is repeated, until the set is completed and then, in the end, returned.
 
-    :param phonebook_length:
-    :return:
+    Parameters
+    ----------
+    phonebook_length: int
+        Amount of numbers to generate.
+
+    Returns
+    -------
+    phonebook: set of int
+        A set of randomly generated mobile numbers.
     """
     ranges_length = 0
     for r in data.ranges:
@@ -30,8 +40,17 @@ def generate_phonebook(phonebook_length: int) -> set:
 
 def print_user_interface() -> dict:
     """
+    Print user interface, gather request data.
 
-    :return:
+    This function displays information about program, then gathers and validates user commands.
+
+    Returns
+    -------
+    : dictionary of
+        mode: int
+            Program mode.
+        numbers_amount: int
+            Amount of numbers to display.
     """
     mode, numbers_amount = None, None
     print("\nWelcome to ez_numbers - mobile numbers that make sense!\n"
@@ -70,12 +89,20 @@ def print_user_interface() -> dict:
 
 def handle_user_request(phonebook: set, ez_numbers: list, mode: int, numbers_amount: int):
     """
+    Invoke dividing functions, print results.
 
-    :param phonebook:
-    :param ez_numbers:
-    :param mode:
-    :param numbers_amount:
-    :return:
+    This function handles user request data and displays ez_numbers. Each case has slightly different...
+
+    Parameters
+    ----------
+    phonebook: set
+        A set of randomly generated mobile numbers.
+    ez_numbers: list
+        A list for selected numbers - the ez_numbers.
+    mode: int
+        Program mode.
+    numbers_amount: int
+        Amount of numbers to display.
     """
     final_data = None
     match mode:
@@ -95,10 +122,24 @@ def handle_user_request(phonebook: set, ez_numbers: list, mode: int, numbers_amo
 
 def divide_phonebook_by_3(phonebook: set, ez_numbers: list) -> dict:
     """
+    Divide and analyze numbers in phonebook.
 
-    :param phonebook:
-    :param ez_numbers:
-    :return:
+    ...
+
+    Parameters
+    ----------
+    phonebook: set
+        A set of randomly generated mobile numbers.
+    ez_numbers: list
+        A list of ez_numbers.
+
+    Returns
+    -------
+    : dictionary of
+        phonebook: set
+            A set of randomly generated mobile numbers.
+        ez_numbers: list
+            A list of ez_numbers.
     """
     for number in phonebook.copy():
         current_number = str(number)
@@ -120,11 +161,25 @@ def divide_phonebook_by_3(phonebook: set, ez_numbers: list) -> dict:
 def divide_phonebook_by_part_length(phonebook: set, ez_numbers: list, part_length: int, matches: int) -> dict:
     """
 
-    :param phonebook:
-    :param ez_numbers:
-    :param part_length:
-    :param matches:
-    :return:
+
+    Parameters
+    ----------
+    phonebook: set
+        A set of randomly generated mobile numbers.
+    ez_numbers: list
+        A list of ez_numbers.
+    part_length: int
+        Length of parts to compare.
+    matches: int
+        Number of matches of parts required.
+
+    Returns
+    -------
+    : dictionary of
+        phonebook: set
+            A set of randomly generated mobile numbers.
+        ez_numbers: list
+            A list of ez_numbers.
     """
     for number in phonebook.copy():
         current_number = str(number)
