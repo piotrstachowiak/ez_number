@@ -7,9 +7,9 @@ def generate_phonebook(phonebook_length: int) -> set:
     """
     Generate set of mobile numbers.
 
-    This function generates a random set of mobile numbers from ranges assigned to use in Poland. At first,
-    it picks a random range containing mobile numbers, then generates random number from that range and saves it.
-    This is repeated, until the set is completed and then, in the end, returned.
+    This function generates a set of random mobile numbers from ranges assigned to use in Poland. At first, it picks a
+    random range containing mobile numbers, then generates a random number from that range and saves it. This is
+    repeated, until the set is completed and then, in the end, returned.
 
     Parameters
     ----------
@@ -56,8 +56,8 @@ def print_user_interface() -> dict:
     print("\nWelcome to ez_numbers - mobile numbers that make sense!\n"
           "\nAvailable modes are:\n"
           "1 - The Default - generates 15 numbers in standard format (e.g. \"881 111 881\").\n"
-          "2 - The Custom - generates up to 100 numbers (you choose how many!) consisting of a "
-          "4-digit pattern and a single digit rest (e.g.: \"6646 1 6646\", \"5335 5335 0\") or in standard format.\n"
+          "2 - The Custom - generates up to 100 numbers (you choose how many!) consisting of a 4-digit pattern and a "
+          "single digit rest (e.g.: \"6646 1 6646\", \"5335 5335 0\") or in standard format.\n"
           "3 - The Weird - generates up to 100 numbers that are... mostly rather interesting than practical.")
     while True:
         try:
@@ -91,7 +91,8 @@ def handle_user_request(phonebook: set, ez_numbers: list, mode: int, numbers_amo
     """
     Invoke dividing functions, print results.
 
-    This function handles user request data and displays ez_numbers. Each case has slightly different...
+    This function handles user request data and displays ez_numbers. At first, based on the mode chosen by user, certain
+    dividing functions are invoked. Then returned data is sorted and finally printed.
 
     Parameters
     ----------
@@ -116,6 +117,8 @@ def handle_user_request(phonebook: set, ez_numbers: list, mode: int, numbers_amo
         case 3:
             half_data = divide_phonebook_by_part_length(phonebook, ez_numbers, 4, 2)
             final_data = divide_phonebook_by_part_length(half_data["phonebook"], half_data["ez_numbers"], 3, 2)
+    # ez_numbers are sorted with lambda function with two keys, the first prioritizes numbers with the fewest different
+    # digits, whereas the second seeks for the most whitespaces in string
     outcome = sorted(final_data["ez_numbers"], key=lambda number: ((len(set(number))), -len(number.split(' '))))
     print("\n".join(outcome[:numbers_amount]))
 
@@ -124,12 +127,14 @@ def divide_phonebook_by_3(phonebook: set, ez_numbers: list) -> dict:
     """
     Divide and analyze numbers in phonebook.
 
-    ...
+    This function decides whether numbers from phonebook are ez_numbers. At first, the number is divided into 3-digit
+    parts, then analyzed. If all criteria are met, it is formatted, added to the ez_numbers list and finally removed
+    from the phonebook dictionary. This is repeated for each number in phonebook.
 
     Parameters
     ----------
     phonebook: set
-        A set of randomly generated mobile numbers.
+        A set of mobile numbers.
     ez_numbers: list
         A list of ez_numbers.
 
@@ -137,7 +142,7 @@ def divide_phonebook_by_3(phonebook: set, ez_numbers: list) -> dict:
     -------
     : dictionary of
         phonebook: set
-            A set of randomly generated mobile numbers.
+            A set of mobile numbers.
         ez_numbers: list
             A list of ez_numbers.
     """
@@ -160,12 +165,17 @@ def divide_phonebook_by_3(phonebook: set, ez_numbers: list) -> dict:
 
 def divide_phonebook_by_part_length(phonebook: set, ez_numbers: list, part_length: int, matches: int) -> dict:
     """
+    Divide and analyze numbers in phonebook.
 
+    This function is a more generalised version of :func:`divide_phonebook_by_3` with additional parameters. It decides
+    whether numbers from phonebook are ez_numbers. At first, the number is divided into parts, and then analyzed. If
+    all criteria are met, it is formatted, added to the ez_numbers list and removed from the phonebook dictionary. This
+    is repeated for each number in phonebook.
 
     Parameters
     ----------
     phonebook: set
-        A set of randomly generated mobile numbers.
+        A set of mobile numbers.
     ez_numbers: list
         A list of ez_numbers.
     part_length: int
@@ -177,7 +187,7 @@ def divide_phonebook_by_part_length(phonebook: set, ez_numbers: list, part_lengt
     -------
     : dictionary of
         phonebook: set
-            A set of randomly generated mobile numbers.
+            A set of mobile numbers.
         ez_numbers: list
             A list of ez_numbers.
     """
